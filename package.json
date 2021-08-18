@@ -1,0 +1,37 @@
+{
+  "name": "hngi-interactive-resume",
+  "version": "1.0.0",
+  "description": "A repo containing code for interactive resume page",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec \"./node_modules/.bin/ts-node\" --ext js,json,ts server/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NdubuisiJr/hngi-interactive-resume.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NdubuisiJr/hngi-interactive-resume/issues"
+  },
+  "homepage": "https://github.com/NdubuisiJr/hngi-interactive-resume#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.12",
+    "@types/node": "^15.12.4",
+    "eslint": "^7.28.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.3"
+  }
+}
