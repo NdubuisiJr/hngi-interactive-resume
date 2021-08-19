@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 interface mailData{
     email: string | undefined,
     password: string | undefined

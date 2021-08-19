@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import { promises } from 'fs';
 import { PORT } from './config';
 import bodyParser from 'body-parser';
@@ -19,29 +19,38 @@ const server: Application = express();
 server.use(express.static('public')); 
 server.use(bodyParser.urlencoded({ extended: true })); 
 
-server.get('/', async (req:Request, res: Response )=>{
+server.get('/', async (req:Request, res: Response, next: NextFunction )=>{
    try {
        return sendHtml(res);
    } catch (error) {
        console.log(error);
-       res.status(500).send(`
-       <h1>A Error Occured</h1>
-    `);
+       next(error); 
    }
 });
 
-server.post('/sendemail',async (req: Request, res: Response)=>{
+server.post('/sendemail',async (req: Request, res: Response, next:NextFunction)=>{
     try {
         let body = req.body;
         sendEmail('ndubuisijrchukuigwe@gmail.com',body.subject,`${body.message} by ${body.name}`);
         res.redirect('/');
     } catch (error) {
         console.log(error);
-       res.status(500).send(`
-       <h1>A Error Occured</h1>
-    `);
+       next(error)
     }
 })
+
+server.use((req: Request, res:Response)=>{
+    const message=`could not locate the resource at method = ${
+        req.method}, url = ${req.url}, accept = ${
+        req.header('accept')}`;
+    res.status(404).send(message);
+});
+
+server.use((error:any, req:Request, res:Response, next:NextFunction)  =>{
+    res.status(500).send(`
+        <h1>An Error occured. It's our fault</h1>
+    `);
+});
 
 
 server.listen(PORT || 9000, ()=>{
