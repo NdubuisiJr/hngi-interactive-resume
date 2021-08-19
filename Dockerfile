@@ -3,7 +3,7 @@ FROM node:latest
 COPY dist/ /src/dist/
 COPY public/ /src/public/
 COPY package.json /src
-COPY indext.html /src
+COPY index.html /src
 
 WORKDIR /src
 
