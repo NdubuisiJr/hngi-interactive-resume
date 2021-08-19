@@ -12,7 +12,7 @@ const transporter: Transporter = nodemailer.createTransport({
     }
 });
 
-const sendEmail = (email: string, subject: string, message: string ) =>{
+export const sendEmail = (email: string, subject: string, message: string ) =>{
     return new Promise((resolve, reject)=>{
         transporter.sendMail({
             from: mailInfo.email,
@@ -28,4 +28,3 @@ const sendEmail = (email: string, subject: string, message: string ) =>{
     });
 };
 
-export default sendEmail;

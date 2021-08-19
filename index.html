@@ -363,11 +363,12 @@
                         <!-- Follow https://templatemo.com/contact page to setup your own contact form -->
 
                         <form
-                            action="#"
+                            action="/sendemail"
                             method="post"
                             class="contact-form"
                             data-aos="fade-up"
                             data-aos-delay="300"
+                            enctype="application/x-www-form-urlencoded"
                             role="form"
                         >
                             <div class="row">
@@ -382,10 +383,10 @@
 
                                 <div class="col-lg-6 col-12">
                                     <input
-                                        type="email"
+                                        type="text"
                                         class="form-control"
-                                        name="email"
-                                        placeholder="Email"
+                                        name="subject"
+                                        placeholder="Subject"
                                     />
                                 </div>
 
