@@ -34,8 +34,7 @@ server.post('/sendemail',async (req: Request, res: Response, next:NextFunction)=
         sendEmail('ndubuisijrchukuigwe@gmail.com',body.subject,`${body.message} by ${body.name}`);
         res.redirect('/');
     } catch (error) {
-        console.log(error);
-       next(error)
+        res.redirect('/');
     }
 })
 
