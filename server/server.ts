@@ -1,15 +1,12 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { promises } from 'fs';
 import { PORT } from './config';
-import bodyParser from 'body-parser';
-import path from 'path';
+import { urlencoded } from 'body-parser';
 import { sendEmail } from './sendEmail';
+import path from 'path';
 
-const sendHtml = async (res: Response, message?:string)  => {
-    let html:string = await readFile(path.join(process.cwd(),'index.html'),'utf-8');
-    if(message){
-        html.replace('Send Message',message);
-    }
+const sendHtml = async (res: Response, page:string)  => {
+    let html:string = await readFile(path.join(process.cwd(), page),'utf-8');
     return res.status(200).send(html);
 }
 
@@ -17,24 +14,26 @@ const { readFile } = promises;
 const server: Application = express(); 
 
 server.use(express.static('public')); 
-server.use(bodyParser.urlencoded({ extended: true })); 
+server.use(urlencoded({ extended: true })); 
 
 server.get('/', async (req:Request, res: Response, next: NextFunction )=>{
    try {
-       return sendHtml(res);
+       return sendHtml(res, 'index.html');
    } catch (error) {
        console.log(error);
        next(error); 
    }
 });
 
+
+
 server.post('/sendemail',async (req: Request, res: Response, next:NextFunction)=>{
     try {
         let body = req.body;
         sendEmail('ndubuisijrchukuigwe@gmail.com',body.subject,`${body.message} by ${body.name}`);
-        res.redirect('/');
+        return sendHtml(res, 'thanks.html');
     } catch (error) {
-        res.redirect('/');
+         return sendHtml(res, 'thanks.html');
     }
 })
 
