@@ -1,7 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
-import { PORT } from './config';
+import { PORT } from './utils/config';
 import { json, urlencoded } from 'body-parser';
-import { sendEmail } from './sendEmail';
+import { sendEmail } from './utils/sendEmail';
 import path from 'path';
 import * as handlebars from 'express-handlebars';
 import ExpressHandlebars from 'express-handlebars/dist/express-handlebars';
@@ -9,6 +9,7 @@ import { ReadRss } from './utils/rssReader';
 import router from './route';
 import connectDb from './utils/connectToDb';
 import { FeedService } from './services/feedService';
+import { BackgroundService } from './services/backgroundService';
 
 const server: Application = express();
 
@@ -29,6 +30,9 @@ server.use(urlencoded({ extended: true }));
 server.use(json());
 
 connectDb();
+
+// start background service
+BackgroundService.GetInstance().Init(10);
 
 // API routes
 server.use('/api/v1', router);

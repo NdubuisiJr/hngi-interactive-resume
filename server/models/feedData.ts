@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose';
 const feed = new Schema({
     link: String,
     title: String,
+    url: String,
     description: String,
     image: {
         url: String,

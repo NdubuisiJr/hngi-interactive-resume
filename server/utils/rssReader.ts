@@ -29,7 +29,11 @@ export const ReadRss = async (file: string): Promise<IFeedData> => {
 
 export const ReadRssUrl = async (url: string) => {
     let parser = new Parser();
-    let feed = (await parser.parseURL(url)) as unknown;
+    let feed = (await parser.parseURL(url)) as object;
+    feed = {
+        ...feed,
+        url,
+    };
     return feed as IFeedData;
 };
 

@@ -1,6 +1,7 @@
 export interface IFeedData {
     link?: string;
     title?: string;
+    url?: string;
     description?: string;
     image?: IFeedData;
     items?: IFeedDataItem[];

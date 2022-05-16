@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { IFeedData } from '../contracts/feeds';
+import { BackgroundService } from '../services/backgroundService';
 import { FeedService } from '../services/feedService';
 import { ReadRssUrl } from '../utils/rssReader';
 
@@ -42,5 +43,15 @@ export class FeedController {
         await FeedService.delete(id as string);
         console.log('redirecting');
         res.redirect('/');
+    }
+
+    static async Configure(req: Request, res: Response, next: NextFunction) {
+        const { pollingFrequency, previewLength } = req.body;
+        if (pollingFrequency && pollingFrequency > 0)
+            BackgroundService.GetInstance().Reset(pollingFrequency);
+        if (previewLength && previewLength > -1)
+            BackgroundService.GetInstance().previewLength = previewLength;
+
+        res.redirect('/manage');
     }
 }

@@ -3,6 +3,51 @@
  <section class="contact section-padding" id="contact">
             <div class="container">
                 <div class="row">
+                     <div class="col-lg-8 mx-auto col-md-10 col-12">
+                        <form
+                            action="/api/v1/feed/config"
+                            method="post"
+                            class="contact-form"
+                            data-aos="fade-up"
+                            data-aos-delay="300"
+                            enctype="application/x-www-form-urlencoded"
+                            role="form"
+                        >
+                            <div class="row">
+                               
+                                <div class="col-lg-12 col-12">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="pollingFrequency"
+                                        placeholder="Polling frequency (mins)"
+                                    />
+
+                                </div>
+
+                                <div class="col-lg-12 col-12">
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="previewLength"
+                                        placeholder="Preview length"
+                                    />
+
+                                </div>
+
+                                <div class="col-lg-5 mx-auto col-7">
+                                    <button
+                                        type="submit"
+                                        class="form-control"
+                                        id="submit-button"
+                                        name="submit"
+                                    >
+                                        Configure
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
                     <div class="col-lg-8 mx-auto col-md-10 col-12">
                         <form

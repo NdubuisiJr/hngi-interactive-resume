@@ -11,4 +11,6 @@ router.patch('/feed/:title', FeedController.Update);
 
 router.delete('/feed/:id', FeedController.Delete);
 
+router.post('/feed/config', FeedController.Configure);
+
 export default router;

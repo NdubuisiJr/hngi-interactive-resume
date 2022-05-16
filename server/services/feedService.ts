@@ -1,9 +1,18 @@
 import { IFeedData } from '../contracts/feeds';
 import Feed from '../models/feedData';
+import { BackgroundService } from './backgroundService';
 
 export class FeedService {
     static async getAll() {
-        return await Feed.find({}).lean();
+        const result = await Feed.find({}).lean();
+        result.forEach((feed) => {
+            const items = feed.items.splice(
+                0,
+                BackgroundService.GetInstance().previewLength
+            );
+            feed.items = [...items];
+        });
+        return result;
     }
 
     static async get(filter: IFeedData) {
@@ -12,6 +21,10 @@ export class FeedService {
 
     static async create(data: IFeedData) {
         return await Feed.create(data);
+    }
+
+    static async updateModel(id: string, model: any) {
+        await Feed.findByIdAndUpdate(id, model);
     }
 
     static async update(id: string, feedTitle: string, isRead: boolean) {
