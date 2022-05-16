@@ -5,7 +5,6 @@ import { sendEmail } from './utils/sendEmail';
 import path from 'path';
 import * as handlebars from 'express-handlebars';
 import ExpressHandlebars from 'express-handlebars/dist/express-handlebars';
-import { ReadRss } from './utils/rssReader';
 import router from './route';
 import connectDb from './utils/connectToDb';
 import { FeedService } from './services/feedService';

@@ -2,8 +2,7 @@ import { connect } from 'mongoose';
 
 const connectDb = async () => {
     try {
-        const connectionString: string =
-            'mongodb+srv://ndubuisijr:chukuigwe@freemongo.eewl4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+        const connectionString: string = process.env.CONNECTION || '';
         await connect(connectionString);
     } catch (error) {
         console.log('db not connected', error);
