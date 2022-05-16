@@ -1,0 +1,40 @@
+.feed{
+    width: 90%;
+    background-color: #fff;
+    overflow: hidden;
+    margin: auto;
+}
+
+.feed-items{
+    border: 1px solid gray;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.feed-read{
+    background-color: gray;
+}
+
+  .feed-image{
+    width: 200px;
+    height: auto;
+    margin: 20px auto;
+    font-size: large;  
+  }
+
+  .feed-items h4 a {
+      color: #0c8195;
+  }
+
+  .feed h6 {
+      color: #0c8195;
+      width: 50;
+      margin: 5px auto;
+  }
+
+  .feed-title{
+      width: 80%;
+      margin: auto;
+  }
+  
