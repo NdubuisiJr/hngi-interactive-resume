@@ -1,0 +1,72 @@
+{{> header}}
+{{> hero}}
+
+{{#each feeds}}
+    <div id="{{this._id}}" class="feed">
+        <div class="feed-image">
+            <img src="{{this.image.url}}" alt="{{image.title}}" height="{{image.height}}" width="{{image.width}}">
+            <span>{{this.image.title}}</span>
+        </div>
+
+        <div class="feed-items">
+
+            {{#each this.items}}
+                {{#if this.read}}
+                    <div class="feed-read">
+                        <h1><a href="{{this.link}}">{{this.title}}</a></h1>
+                        <span> By {{this.creator}}</span>
+                        <span>{{this.pubDate}}</span>
+                        <h2>Summary</h2>
+                        <p>{{{this.content}}}</p>
+                    </div>
+
+                {{else}}
+                    <div id="unread-item">
+                        <h1>
+                            <a href="{{this.link}}">{{this.title}}</a> 
+                            <button id="{{this.title}}">mark as read</button>
+                        </h1>
+                        <span> By {{this.creator}}</span>
+                        <span>{{this.pubDate}}</span>
+                        <h2>Summary</h2>
+                        <p>{{{this.content}}}</p>
+                    </div>
+                {{/if}}
+                
+            {{/each}}
+        </div>
+    </div>
+{{/each}}
+
+{{> footer}}
+
+<script>
+    const getTitle = (id) => {
+        if(id.includes('?')){
+            return `${id.split('?')[0]}*`;
+        }
+        return id;
+    };
+    const div = document.getElementById('unread-item');
+    const btns = div.getElementsByTagName('button');
+    for(let btn of btns){
+        btn.addEventListener('click', e => {
+            const id = e.target.id;
+            const url = `/api/v1/feed/${getTitle(id)}`;
+            fetch(url,{
+                method:'PATCH'
+            })
+            .then(res=>{
+                if(res.status === 204){
+                    window.location.reload();
+                }
+            })
+            .catch(err=>{
+                 window.location.reload();
+            });
+            setTimeout(()=>{
+                window.location.reload();
+            },1000);
+        })
+    }
+</script>

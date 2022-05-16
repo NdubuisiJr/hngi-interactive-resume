@@ -1,0 +1,79 @@
+ {{> header}}
+ {{> hero}}
+ <section class="contact section-padding" id="contact">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 mx-auto col-md-10 col-12">
+                        <form
+                            action="/api/v1/feed"
+                            method="post"
+                            class="contact-form"
+                            data-aos="fade-up"
+                            data-aos-delay="300"
+                            enctype="application/x-www-form-urlencoded"
+                            role="form"
+                        >
+                            <div class="row">
+                               
+                                <div class="col-lg-12 col-12">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="url"
+                                        placeholder="url"
+                                    />
+
+                                </div>
+
+                                <div class="col-lg-5 mx-auto col-7">
+                                    <button
+                                        type="submit"
+                                        class="form-control"
+                                        id="submit-button"
+                                        name="submit"
+                                    >
+                                        Add feed
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Subscriptions</h3>
+                <ul id="link-list">
+                    {{#each feeds}}
+                        <li >
+                            <a href="{{this.link}}">{{this.link}}</a>
+                            <button id="{{this._id}}" >Delete</button>
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+  </section>
+{{> footer}}
+
+<script>
+    const ul = document.getElementById('link-list');
+    const lis = ul.getElementsByTagName('button');
+    for(let li of lis){
+        li.addEventListener('click', e => {
+            const id = e.target.id;
+            const url = `/api/v1/feed/${id}`;
+            fetch(url,{
+                method:'DELETE'
+            })
+            .then(res=>{
+                if(res.status === 204){
+                    window.location.reload();
+                }
+            })
+            .catch(err=>{
+                 window.location.reload();
+            });
+            window.location.reload();
+        })
+    }
+</script>

@@ -57,6 +57,10 @@ body {
   font-family: var(--base-font-family);
 }
 
+.feed-read{
+  background-color: gray;
+}
+
 /*---------------------------------------
      TYPOGRAPHY              
   -----------------------------------------*/
